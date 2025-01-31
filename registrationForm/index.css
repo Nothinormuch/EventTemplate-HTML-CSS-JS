@@ -1,0 +1,40 @@
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f0f0f0; /* Example background color */
+    overflow: hidden;
+}
+
+nav li {
+    float: left;
+}
+
+nav a {
+    display: block;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+section {
+    padding: 20px;
+}
+
+label {
+    display: block; /* Makes labels stack nicely */
+    margin-bottom: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Prevents padding from increasing width */
+}
+
+img {
+    max-width: 200px; /* Adjust as needed */
+    height: auto;
+}
