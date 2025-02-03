@@ -1,23 +1,16 @@
-const MAX_TEAM_MEMBERS = 10;
+const MAX_TEAM_MEMBERS = 10; // Change this value to set the maximum number of team members
 
 function showSection(sectionId) {
     document.querySelectorAll('section').forEach(section => {
         section.style.display = 'none';
     });
     document.getElementById(sectionId).style.display = 'block';
-
-    const navLinks = document.querySelectorAll('nav a');
-    navLinks.forEach(link => link.classList.remove('active'));
-    const activeLink = document.querySelector(`nav a[href="#${sectionId}"]`);
-    if (activeLink) {
-        activeLink.classList.add('active');
-    }
 }
 
 function updateMemberFields() {
     const numMembers = document.getElementById('num-members').value;
     const memberFields = document.getElementById('member-fields');
-    memberFields.innerHTML = '';
+    memberFields.innerHTML = ''; // Clear existing fields
 
     for (let i = 1; i <= numMembers; i++) {
         const label = document.createElement('label');
@@ -34,6 +27,7 @@ function updateMemberFields() {
     }
 }
 
+// Populate the number of members dropdown
 const numMembersSelect = document.getElementById('num-members');
 for (let i = 1; i <= MAX_TEAM_MEMBERS; i++) {
     const option = document.createElement('option');
@@ -42,8 +36,36 @@ for (let i = 1; i <= MAX_TEAM_MEMBERS; i++) {
     numMembersSelect.appendChild(option);
 }
 
+// Initialize with one member field on page load
 updateMemberFields();
 
+
+function showSection(sectionId) {
+    document.querySelectorAll('section').forEach(section => {
+        section.style.display = 'none';
+    });
+    document.getElementById(sectionId).style.display = 'block';
+
+    // Optional: Add active class to nav link
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => link.classList.remove('active')); // Remove from all
+    const activeLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
+}
+
+// ... (rest of your JavaScript) ...
+
+// Add some CSS for the active class
+const style = document.createElement('style');
+style.textContent = `
+    nav a.active {
+        background-color: #ddd; /* Example styling */
+        color: #333;
+    }
+`;
+document.head.appendChild(style);
 
 function toggleScreenshot() {
     const paymentMethod = document.getElementById('payment-method').value;
@@ -52,13 +74,11 @@ function toggleScreenshot() {
     const transactionLabel = document.getElementById('transaction-id-label');
 
     if (paymentMethod === 'cash') {
-        screenshotUpload.style.display = 'none';
+        screenshotUpload.style.display = 'none'; // Hide the upload section
         transaction.style.display = 'none';
         transactionLabel.style.display = 'none';
     } else {
-        screenshotUpload.style.display = 'block';
-        transaction.style.display = 'block';
-        transactionLabel.style.display = 'block';
+        screenshotUpload.style.display = 'block'; // Show the upload section
     }
 }
 
@@ -76,7 +96,7 @@ function toggleAffiliationFields() {
         clubInfo.style.display = 'none';
         otherCollegeInfo.style.display = 'block';
     }
-    toggleIDFields();
+    toggleIDFields(); // Call to properly show/hide ids when same college is selected.
 }
 
 function toggleIDFields() {
@@ -89,20 +109,11 @@ function toggleIDFields() {
             idFields.style.display = 'block';
             clubIDField.style.display = "block";
         } else {
-            idFields.style.display = 'block';
-            clubIDField.style.display = "none";
+            idFields.style.display = 'block'; // College ID is always shown
+            clubIDField.style.display = "none"; // Club ID is hidden
         }
     }
 }
 
-toggleAffiliationFields();
 
-// Add some CSS for the active class (moved to script.js)
-const style = document.createElement('style');
-style.textContent = `
-    nav a.active {
-        background-color: #ddd;
-        color: #333;
-    }
-`;
-document.head.appendChild(style);
+toggleAffiliationFields();
