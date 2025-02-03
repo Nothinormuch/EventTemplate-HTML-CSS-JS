@@ -1,0 +1,120 @@
+{
+  "type": "object",
+  "properties": {
+    "teamName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The name of the team",
+      "required": true
+    },
+    "numMembers": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "The number of team members",
+      "required": true
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Name of a team member",
+            "required": true
+          },
+          "contact": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of a team member",
+            "required": true
+          }
+        },
+        "required": ["name", "contact"]
+      },
+      "minItems": 1,
+      "description": "Array of team members",
+      "required": true
+    },
+    "contact": {
+      "type": "string",
+      "format": "email",
+      "description": "Contact email for the team",
+      "required": true
+    },
+    "paymentMethod": {
+      "type": "string",
+      "enum": ["upi", "bank", "cash"],
+      "description": "The chosen payment method",
+      "required": true
+    },
+    "transactionId": {
+      "type": "string",
+      "description": "Transaction ID (required for UPI and Bank Transfer)"
+    },
+    "screenshot": {
+        "type": "string",
+        "description": "Base64 encoded image data of the payment screenshot",
+        "contentEncoding": "base64",
+        "contentMediaType": "image/*"
+    },
+    "sameCollege": {
+      "type": "boolean",
+      "description": "Whether the team is from the same college"
+    },
+    "sameClub": {
+      "type": "boolean",
+      "description": "Whether the team is from the same club (only if sameCollege is true)"
+    },
+    "collegeId": {
+      "type": "string",
+      "description": "College ID (required if sameCollege is true and sameClub is true)"
+    },
+    "clubId": {
+      "type": "string",
+      "description": "Club ID (required if sameCollege is true and sameClub is true)"
+    },
+    "collegeName": {
+      "type": "string",
+      "description": "Name of the college (required if sameCollege is false)"
+    },
+    "city": {
+      "type": "string",
+      "description": "City of the college (required if sameCollege is false)"
+    },
+    "consent": {
+      "type": "boolean",
+      "description": "Whether the user has agreed to the consent terms",
+      "required": true
+    }
+  },
+  "required": [
+    "teamName",
+    "numMembers",
+    "members",
+    "contact",
+    "paymentMethod",
+    "sameCollege",
+    "consent"
+  ],
+  "dependentRequired": {
+    "transactionId": ["paymentMethod"],
+    "clubId": ["sameCollege", "sameClub"],
+    "collegeId": ["sameCollege", "sameClub"],
+    "collegeName": ["sameCollege"],
+    "city": ["sameCollege"]
+  },
+  "if": {
+    "properties": {
+      "paymentMethod": "cash"
+    }
+  },
+  "then": {
+      "properties": {
+          "transactionId": false,
+          "screenshot": false
+      }
+  }
+}
