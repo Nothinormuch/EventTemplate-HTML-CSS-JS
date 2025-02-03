@@ -21,84 +21,95 @@
 
     <section id="team">
         <h2>Team Details</h2>
-        <form id="team-form" onsubmit="event.preventDefault(); showSection('payment');">
-            <label for="team-name">Team Name:</label>
-            <input type="text" id="team-name" required>
+        <form id="registrationForm">  <label for="team-name">Team Name:</label>
+            <input type="text" id="team-name" name="teamName" required>
 
             <label for="num-members">Number of Team Members:</label>
-            <select id="num-members" onchange="updateMemberFields()">
+            <select id="num-members" name="numMembers" onchange="updateMemberFields()">
             </select>
             <div id="member-fields">
-                <label for="member1">Member 1 Name:</label>
-                <input type="text" id="member1" required>
+                <label for="member1name">Member 1 Name:</label>
+                <input type="text" id="member1name" name="member1name" required>
+                 <label for="member1email">Member 1 Email:</label>
+                <input type="email" id="member1email" name="member1email" required>
+                 <label for="member1phone">Member 1 Phone:</label>
+                <input type="tel" id="member1phone" name="member1phone" required>
+                 <label for="member1course">Member 1 Course:</label>
+                <input type="text" id="member1course" name="member1course" required>
+                 <label for="member1year">Member 1 Year:</label>
+                <input type="text" id="member1year" name="member1year" required>
+                 <label for="member1sap">Member 1 SAP ID:</label>
+                <input type="text" id="member1sap" name="member1sap" required>
+                 <label for="member1csa">Member 1 CSA ID:</label>
+                <input type="text" id="member1csa" name="member1csa">
             </div>
 
             <label for="contact">Contact Number:</label>
-            <input type="tel" id="contact" required>
+            <input type="tel" id="contact" name="contact" required>
 
             <label for="email">Email Address:</label>
-            <input type="email" id="email" required>
+            <input type="email" id="email" name="email" required>
 
             <label for="team-category">Team Category:</label>
-            <select id="team-category">
+            <select id="team-category" name="teamCategory">
                 <option value="beginner">Beginner</option>
                 <option value="intermediate">Intermediate</option>
                 <option value="advanced">Advanced</option>
             </select>
 
-            <button type="submit">Next</button>
+            <button type="button" onclick="showSection('payment')">Next</button>
         </form>
     </section>
 
     <section id="payment" style="display: none;">
         <h2>Payment</h2>
         <p>Scan the QR code to make payment.</p>
-        <img src="upi_qr.png" alt="UPI QR Code">
+        <img src="QRCode.png" alt="UPI QR Code">
         <label for="payment-method">Payment Method:</label>
-        <select id="payment-method" onchange="toggleScreenshot()">
+        <select id="payment-method" name="paymentMethod" onchange="toggleScreenshot()">
             <option value="upi">UPI</option>
             <option value="cash">Cash</option>
         </select>
         <label for="transaction-id" id="transaction-id-label">Transaction ID:</label>
-        <input type="text" id="transaction-id">
+        <input type="text" id="transaction-id" name="transactionId">
         <div id="screenshot-upload"> <label for="screenshot">Upload Payment Screenshot:</label>
-            <input type="file" id="screenshot" accept="image/*">
+            <input type="file" id="screenshot" name="screenshot" accept="image/*">
         </div>
-        <button onclick="showSection('affiliation')">Next</button>
+        <button type="button" onclick="showSection('affiliation')">Next</button>
     </section>
     <section id="affiliation" style="display: none;">
         <h2>Affiliation</h2>
         <form>
             <label for="same-college">Are you from the same college?</label>
-            <select id="same-college" onchange="toggleAffiliationFields()">
+            <select id="same-college" name="sameCollege" onchange="toggleAffiliationFields()">
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
             </select>
 
             <div id="club-info" style="display: none;">
                 <label for="same-club">Are you from our club?</label>
-                <select id="same-club" onchange="toggleIDFields()">
+                <select id="same-club" name="sameClub" onchange="toggleIDFields()">
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
 
                 <div id="id-fields" style="display: none;">
                     <label for="college-id">College ID:</label>
-                    <input type="text" id="college-id">
+                    <input type="text" id="college-id" name="collegeId">
                     <div id="club-id-field" style="display:none;"> <label for="club-id">Club ID:</label>
-                        <input type="text" id="club-id">
+                        <input type="text" id="club-id" name="clubId">
                     </div>
                 </div>
             </div>
 
             <div id="other-college-info" style="display: none;">
                 <label for="college-name">College Name:</label>
-                <input type="text" id="college-name">
+                <input type="text" id="college-name" name="collegeName">
                 <label for="city">City:</label>
-                <input type="text" id="city">
+                <input type="text" id="city" name="city">
             </div>
         </form>
-        <button onclick="showSection('consent')">Next</button>
+        <button type="button" onclick="showSection('consent')">Next</button>
     </section>
 
     <section id="consent" style="display: none;">
@@ -112,16 +123,15 @@
             <p>I have read and understood the terms and conditions outlined in the full waiver document (linked below).
             </p>
             <label for="consent-checkbox">
-                <input type="checkbox" id="consent-checkbox" required> I have read and agree to the consent terms.
+                <input type="checkbox" id="consent-checkbox" name="consent" required> I have read and agree to the consent terms.
             </label>
 
-            <button onclick="">Submit Registration</button> <!--Function to submit and send data here-->
-    </section>
+            <button type="submit" onclick="submitForm()">Submit Registration</button>  </section>
 
     <section id="whatsapp" style="display: none;">
         <h2>Join WhatsApp Group</h2>
         <p>Scan the QR code to join the WhatsApp group for event updates.</p>
-        <img src="whatsapp_qr.png" alt="WhatsApp Group QR Code">
+        <img src="WhatsAppGroupQRCode.png" alt="WhatsApp Group QR Code">
     </section>
     <script src="index.js"></script>
 </body>
