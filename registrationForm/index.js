@@ -24,6 +24,7 @@ function updateMemberFields() {
         const label = document.createElement('label');
         label.setAttribute('for', `member${i}`);
         label.textContent = `Member ${i} Name:`;
+        label.classList.add('consistent-font'); // Add class for consistent font
 
         const input = document.createElement('input');
         input.setAttribute('type', 'text');
@@ -34,6 +35,7 @@ function updateMemberFields() {
         const yearLabel = document.createElement('label');
         yearLabel.setAttribute('for', `member${i}-year`);
         yearLabel.textContent = `Member ${i} Year of Study:`;
+        yearLabel.classList.add('consistent-font'); // Add class for consistent font
 
         const yearInput = document.createElement('input');
         yearInput.setAttribute('type', 'text');
