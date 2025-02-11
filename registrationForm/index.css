@@ -34,7 +34,7 @@ nav a {
 main {
     width: 90%;
     max-width: 800px;
-    margin: 50px auto;
+    margin: 150px auto; /* Further increased margin to move the form down */
 }
 
 section {
@@ -92,18 +92,24 @@ footer {
     color: #777;
 }
 
-#logoCSA
-{
+#logoCSA {
     position: absolute;
-    top: 34px;
+    top: 60px; /* Moved down */
     right: 10px;
     height: 80px;
 }
 
+#logoEvent {
+    position: absolute;
+    top: 60px; /* Same as other logos */
+    left: 50%;
+    transform: translateX(-50%);
+    height: 80px;
+}
 
 #logoUPES {
     position: absolute;
-    top: 38px;
+    top: 60px; /* Moved down */
     left: 10px;
     height: 36px;
 }
