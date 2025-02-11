@@ -5,6 +5,14 @@ function showSection(sectionId) {
         section.style.display = 'none';
     });
     document.getElementById(sectionId).style.display = 'block';
+
+    // Optional: Add active class to nav link
+    const navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(link => link.classList.remove('active')); // Remove from all
+    const activeLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
 }
 
 function updateMemberFields() {
@@ -22,8 +30,19 @@ function updateMemberFields() {
         input.setAttribute('id', `member${i}`);
         input.setAttribute('required', 'true');
 
+        const yearLabel = document.createElement('label');
+        yearLabel.setAttribute('for', `member${i}-year`);
+        yearLabel.textContent = `Member ${i} Year of Study:`;
+
+        const yearInput = document.createElement('input');
+        yearInput.setAttribute('type', 'text');
+        yearInput.setAttribute('id', `member${i}-year`);
+        yearInput.setAttribute('required', 'true');
+
         memberFields.appendChild(label);
         memberFields.appendChild(input);
+        memberFields.appendChild(yearLabel);
+        memberFields.appendChild(yearInput);
     }
 }
 
@@ -38,24 +57,6 @@ for (let i = 1; i <= MAX_TEAM_MEMBERS; i++) {
 
 // Initialize with one member field on page load
 updateMemberFields();
-
-
-function showSection(sectionId) {
-    document.querySelectorAll('section').forEach(section => {
-        section.style.display = 'none';
-    });
-    document.getElementById(sectionId).style.display = 'block';
-
-    // Optional: Add active class to nav link
-    const navLinks = document.querySelectorAll('nav a');
-    navLinks.forEach(link => link.classList.remove('active')); // Remove from all
-    const activeLink = document.querySelector(`nav a[href="#${sectionId}"]`);
-    if (activeLink) {
-        activeLink.classList.add('active');
-    }
-}
-
-// ... (rest of your JavaScript) ...
 
 // Add some CSS for the active class
 const style = document.createElement('style');
@@ -115,5 +116,62 @@ function toggleIDFields() {
     }
 }
 
+async function submitRegistration() {
+    const teamName = document.getElementById('team-name').value;
+    const numMembers = document.getElementById('num-members').value;
+    const members = [];
+
+    for (let i = 1; i <= numMembers; i++) {
+        const memberName = document.getElementById(`member${i}`).value;
+        const memberYear = document.getElementById(`member${i}-year`).value;
+        members.push({ name: memberName, year: memberYear });
+    }
+
+    const contact = document.getElementById('contact').value;
+    const email = document.getElementById('email').value;
+    const teamCategory = document.getElementById('team-category').value;
+    const teamLeadCourse = document.getElementById('team-lead-course').value;
+    const sameCollege = document.getElementById('same-college').value;
+    const sameClub = document.getElementById('same-club').value;
+
+    const data = {
+        teamName,
+        teamSize: numMembers,
+        teamLeadName: members[0].name,
+        teamLeadEmail: email,
+        teamLeadPhone: contact,
+        teamLeadCourse,
+        teamLeadYearOfStudy: members[0].year,
+        teamLeadUPESStudent: 'Yes',
+        teamLeadCollegeName: 'UPES',
+        teamLeadSapID: sameCollege === 'yes' ? document.getElementById('college-id').value : '-',
+        teamLeadCSAMember: sameClub === 'yes' ? 'Yes' : 'No',
+        teamLeadCSAID: sameClub === 'yes' ? document.getElementById('club-id').value : '-',
+        members: members.slice(1)
+    };
+
+    console.log('Submitting registration data:', data); // Log data being sent
+
+    try {
+        const response = await fetch('http://localhost:3000/api/register', { // Update URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            alert('Registration successful!');
+            showSection('whatsapp');
+        } else {
+            const errorText = await response.text();
+            alert(`Registration failed: ${errorText}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    }
+}
 
 toggleAffiliationFields();
