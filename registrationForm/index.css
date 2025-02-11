@@ -113,3 +113,8 @@ footer {
     left: 10px;
     height: 36px;
 }
+
+.consistent-font {
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+}

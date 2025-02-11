@@ -29,6 +29,7 @@ function updateMemberFields() {
         input.setAttribute('type', 'text');
         input.setAttribute('id', `member${i}`);
         input.setAttribute('required', 'true');
+        input.classList.add('consistent-font'); // Add class for consistent font
 
         const yearLabel = document.createElement('label');
         yearLabel.setAttribute('for', `member${i}-year`);
@@ -38,6 +39,7 @@ function updateMemberFields() {
         yearInput.setAttribute('type', 'text');
         yearInput.setAttribute('id', `member${i}-year`);
         yearInput.setAttribute('required', 'true');
+        yearInput.classList.add('consistent-font'); // Add class for consistent font
 
         memberFields.appendChild(label);
         memberFields.appendChild(input);
