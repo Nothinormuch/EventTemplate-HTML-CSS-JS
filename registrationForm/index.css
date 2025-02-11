@@ -61,6 +61,7 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
+    font-size: 1em; /* Add this line */
 }
 
 input, select {
@@ -69,6 +70,11 @@ input, select {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+input, select, .consistent-font {
+    font-family: Arial, sans-serif;
+    font-size: 1em;
 }
 
 button {
@@ -112,9 +118,4 @@ footer {
     top: 60px; /* Moved down */
     left: 10px;
     height: 36px;
-}
-
-.consistent-font {
-    font-family: Arial, sans-serif;
-    font-size: 1em;
 }
