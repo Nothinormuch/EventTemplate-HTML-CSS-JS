@@ -178,4 +178,169 @@ async function submitRegistration() {
     }
 }
 
+function validateTeamForm() {
+    const teamName = document.getElementById('team-name').value;
+    const numMembers = document.getElementById('num-members').value;
+    const contact = document.getElementById('contact').value;
+    const email = document.getElementById('email').value;
+    const namePattern = /^[A-Za-z\s]+$/;
+    const numberPattern = /^[0-9]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!teamName || !numMembers || !contact || !email) {
+        alert('Please fill out all required fields in the Team Details section.');
+        return false;
+    }
+
+    if (!namePattern.test(teamName)) {
+        alert('Team Name can only contain letters and spaces.');
+        return false;
+    }
+
+    if (!numberPattern.test(contact) || contact.length !== 10) {
+        alert('Contact Number must be exactly 10 digits.');
+        return false;
+    }
+
+    if (!emailPattern.test(email)) {
+        alert('Please enter a valid email address.');
+        return false;
+    }
+
+    for (let i = 1; i <= numMembers; i++) {
+        const memberName = document.getElementById(`member${i}`).value;
+        const memberYear = document.getElementById(`member${i}-year`).value;
+
+        if (!memberName || !memberYear) {
+            alert(`Please fill out all required fields for Member ${i}.`);
+            return false;
+        }
+
+        if (!namePattern.test(memberName)) {
+            alert(`Member ${i} Name can only contain letters and spaces.`);
+            return false;
+        }
+
+        if (!numberPattern.test(memberYear) || memberYear.length !== 1) {
+            alert(`Member ${i} Year of Study must be a single digit.`);
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function validatePaymentForm() {
+    const paymentMethod = document.getElementById('payment-method').value;
+    const transactionId = document.getElementById('transaction-id').value;
+    const screenshot = document.getElementById('screenshot').files.length;
+
+    if (paymentMethod === 'upi' && (!transactionId || !screenshot)) {
+        alert('Please provide the transaction ID and upload the payment screenshot.');
+        return false;
+    }
+
+    return true;
+}
+
+function validateAffiliationForm() {
+    const teamLeadCourse = document.getElementById('team-lead-course').value;
+    const sameCollege = document.getElementById('same-college').value;
+    const namePattern = /^[A-Za-z\s]+$/;
+    const numberPattern = /^[0-9]+$/;
+
+    if (!teamLeadCourse) {
+        alert('Please fill out the Team Lead Course field.');
+        return false;
+    }
+
+    if (!namePattern.test(teamLeadCourse)) {
+        alert('Team Lead Course can only contain letters and spaces.');
+        return false;
+    }
+
+    if (sameCollege === 'yes') {
+        const collegeId = document.getElementById('college-id').value;
+        if (!collegeId) {
+            alert('Please provide the College ID.');
+            return false;
+        }
+
+        if (!numberPattern.test(collegeId)) {
+            alert('College ID can only contain numbers.');
+            return false;
+        }
+
+        const sameClub = document.getElementById('same-club').value;
+        if (sameClub === 'yes') {
+            const clubId = document.getElementById('club-id').value;
+            if (!clubId) {
+                alert('Please provide the Club ID.');
+                return false;
+            }
+
+            if (!numberPattern.test(clubId)) {
+                alert('Club ID can only contain numbers.');
+                return false;
+            }
+        }
+    } else {
+        const collegeName = document.getElementById('college-name').value;
+        const city = document.getElementById('city').value;
+        if (!collegeName || !city) {
+            alert('Please fill out all required fields for other college information.');
+            return false;
+        }
+
+        if (!namePattern.test(collegeName)) {
+            alert('College Name can only contain letters and spaces.');
+            return false;
+        }
+
+        if (!namePattern.test(city)) {
+            alert('City can only contain letters and spaces.');
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function validateConsentForm() {
+    const consentCheckbox = document.getElementById('consent-checkbox').checked;
+    if (!consentCheckbox) {
+        alert('Please agree to the consent terms.');
+        return false;
+    }
+    return true;
+}
+
+document.getElementById('team-form').onsubmit = function(event) {
+    event.preventDefault();
+    if (validateTeamForm()) {
+        showSection('payment');
+    }
+};
+
+document.getElementById('payment-form').onsubmit = function(event) {
+    event.preventDefault();
+    if (validatePaymentForm()) {
+        showSection('affiliation');
+    }
+};
+
+document.getElementById('affiliation-form').onsubmit = function(event) {
+    event.preventDefault();
+    if (validateAffiliationForm()) {
+        showSection('consent');
+    }
+};
+
+document.getElementById('consent-form').onsubmit = function(event) {
+    event.preventDefault();
+    if (validateConsentForm()) {
+        submitRegistration();
+    }
+};
+
 toggleAffiliationFields();

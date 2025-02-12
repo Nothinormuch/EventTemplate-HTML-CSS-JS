@@ -70,18 +70,20 @@
                 <h2>Payment</h2>
                 <p>Scan the QR code to make payment.</p>
                 <img src="QRCode.png" alt="UPI QR Code">
-                <label for="payment-method">Payment Method:</label>
-                <select id="payment-method" onchange="toggleScreenshot()">
-                    <option value="upi">UPI</option>
-                    <option value="cash">Cash</option>
-                </select>
-                <label for="transaction-id" id="transaction-id-label">Transaction ID:</label>
-                <input type="text" id="transaction-id">
-                <div id="screenshot-upload">
-                    <label for="screenshot">Upload Payment Screenshot:</label>
-                    <input type="file" id="screenshot" accept="image/*">
-                </div>
-                <button onclick="showSection('affiliation')">Next</button>
+                <form id="payment-form" onsubmit="event.preventDefault(); showSection('affiliation');">
+                    <label for="payment-method">Payment Method:</label>
+                    <select id="payment-method" onchange="toggleScreenshot()">
+                        <option value="upi">UPI</option>
+                        <option value="cash">Cash</option>
+                    </select>
+                    <label for="transaction-id" id="transaction-id-label">Transaction ID:</label>
+                    <input type="text" id="transaction-id">
+                    <div id="screenshot-upload">
+                        <label for="screenshot">Upload Payment Screenshot:</label>
+                        <input type="file" id="screenshot" accept="image/*">
+                    </div>
+                    <button type="submit">Next</button>
+                </form>
             </div>
         </section>
 
@@ -91,7 +93,7 @@
             </div>
             <div class="form">
                 <h2>Affiliation</h2>
-                <form>
+                <form id="affiliation-form" onsubmit="event.preventDefault(); showSection('consent');">
                     <label for="team-lead-course">Team Lead Course:</label>
                     <input type="text" id="team-lead-course" required>
 
@@ -124,8 +126,8 @@
                         <label for="city">City:</label>
                         <input type="text" id="city">
                     </div>
+                    <button type="submit">Next</button>
                 </form>
-                <button onclick="showSection('consent')">Next</button>
             </div>
         </section>
 
@@ -137,18 +139,20 @@
                 <h2>Consent</h2>
                 <p>Please read the following consent form carefully:</p>
 
-                <div id="consent-text">
-                    <p>I understand and agree that by participating in this event, I release the organizers and associated
-                        parties from any liability for injuries or damages that may occur. I also consent to the use of my name
-                        and image in event-related publicity materials.</p>
-                    <p>I have read and understood the terms and conditions outlined in the full waiver document (linked below).
-                    </p>
-                    <label for="consent-checkbox">
-                        <input type="checkbox" id="consent-checkbox" required> I have read and agree to the consent terms.
-                    </label>
+                <form id="consent-form" onsubmit="event.preventDefault(); submitRegistration();">
+                    <div id="consent-text">
+                        <p>I understand and agree that by participating in this event, I release the organizers and associated
+                            parties from any liability for injuries or damages that may occur. I also consent to the use of my name
+                            and image in event-related publicity materials.</p>
+                        <p>I have read and understood the terms and conditions outlined in the full waiver document (linked below).
+                        </p>
+                        <label for="consent-checkbox">
+                            <input type="checkbox" id="consent-checkbox" required> I have read and agree to the consent terms.
+                        </label>
 
-                    <button onclick="submitRegistration()">Submit Registration</button>
-                </div>
+                        <button type="submit">Submit Registration</button>
+                    </div>
+                </form>
             </div>
         </section>
 
