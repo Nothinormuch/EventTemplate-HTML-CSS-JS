@@ -30,7 +30,7 @@
             </div>
             <div class="form">
                 <h3>Team Details</h3>
-                <form id="team-form" onsubmit="event.preventDefault(); showSection('payment');">
+                <form id="team-form" action="/api/team" method="POST" onsubmit="event.preventDefault(); showSection('payment');">
                     <label for="team-name">Team Name:</label>
                     <input type="text" id="team-name" required>
 
@@ -70,7 +70,7 @@
                 <h2>Payment</h2>
                 <p>Scan the QR code to make payment.</p>
                 <img src="QRCode.png" alt="UPI QR Code">
-                <form id="payment-form" onsubmit="event.preventDefault(); showSection('affiliation');">
+                <form id="payment-form" action="/api/payment" method="POST" onsubmit="event.preventDefault(); showSection('affiliation');">
                     <label for="payment-method">Payment Method:</label>
                     <select id="payment-method" onchange="toggleScreenshot()">
                         <option value="upi">UPI</option>
@@ -93,7 +93,7 @@
             </div>
             <div class="form">
                 <h2>Affiliation</h2>
-                <form id="affiliation-form" onsubmit="event.preventDefault(); showSection('consent');">
+                <form id="affiliation-form" action="/api/affiliation" method="POST" onsubmit="event.preventDefault(); showSection('consent');">
                     <label for="team-lead-course">Team Lead Course:</label>
                     <input type="text" id="team-lead-course" required>
 
@@ -139,7 +139,7 @@
                 <h2>Consent</h2>
                 <p>Please read the following consent form carefully:</p>
 
-                <form id="consent-form" onsubmit="event.preventDefault(); submitRegistration();">
+                <form id="consent-form" action="/api/consent" method="POST" onsubmit="event.preventDefault(); submitRegistration();">
                     <div id="consent-text">
                         <p>I understand and agree that by participating in this event, I release the organizers and associated
                             parties from any liability for injuries or damages that may occur. I also consent to the use of my name
