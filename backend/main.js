@@ -5,6 +5,7 @@ import cors from "cors"; // Import CORS
 
 import RegistrationModel from "./models/registration.js";
 import HackathonDetailsModel from "./models/hackathonDetails.js";
+import runServer from "./server.js"; // Import server.js
 
 dotenv.config();
 const app = express();
@@ -76,7 +77,8 @@ async function mongoConnect()
   }
 }
 
-// Connect to MongoDB Atlas
+// Connect to MongoDB Atlas and run the server
 mongoConnect().then(() => {
   app.listen(PORT, () => console.log(`\nListening on port ${PORT}...`));  // Start Server
+  runServer(); // Run the server from server.js
 });
