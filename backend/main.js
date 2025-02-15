@@ -5,7 +5,7 @@ import cors from "cors"; // Import CORS
 
 import RegistrationModel from "./models/registration.js";
 import HackathonDetailsModel from "./models/hackathonDetails.js";
-import runServer from "./server.js"; // Import server.js
+import runServer from "../registrationForm/server.js"; // Import server.js
 
 dotenv.config();
 const app = express();
